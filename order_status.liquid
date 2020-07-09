@@ -14,16 +14,16 @@
         "order_subtotal": "{{ checkout.subtotal_price | money_without_currency }}",
     {% endif %}
     {% if checkout.tax_price %}
-        "order_tax_amount": "{{ checkout.tax_price | money_without_currency }}",
+        "order_tax": "{{ checkout.tax_price | money_without_currency }}",
     {% endif %}
     {% if checkout.shipping_price %}
-        "order_shipping_amount": "{{ checkout.shipping_price | money_without_currency }}",
+        "order_shipping": "{{ checkout.shipping_price | money_without_currency }}",
     {% endif %}
     {% if checkout.discounts_amount %}
-        "order_discount_amount": "{{ checkout.discounts_amount | money_without_currency }}",
+        "order_discount": "{{ checkout.discounts_amount | money_without_currency }}",
     {% endif %}
     {% if checkout.total_price %}
-        "order_grand_total": "{{ checkout.total_price | money_without_currency }}",
+        "order_total": "{{ checkout.total_price | money_without_currency }}",
     {% endif %}
     "product_id": [
     {% for line_item in checkout.line_items %}
@@ -66,7 +66,7 @@
       {% endif %}
 
     {% else %}
-      "customer_loggedin": "false",
+      "customer_logged_in": "false",
     {% endif %}
 
     {% if cart %}
@@ -74,7 +74,7 @@
       "cart_total_value": "{{ cart.total_price | money_without_currency }}",
     {% endif %}
 
-    "page_type": "order"
+    "tealium_event": "purchase"
   }
 </script>
 
