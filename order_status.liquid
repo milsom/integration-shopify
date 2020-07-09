@@ -1,3 +1,27 @@
+{% comment %}
+
+The order_status template is rendered for both order confirmation as well as order status page views.
+To eliminate double-counting of conversions if someone visits the order status page, Shopify recommends
+wrapping conversion pixels/scripts in a "if first_time_accessed" block.
+
+https://www.shopify.com/partners/blog/order-status-page
+
+The issue with this is that subsequent orders from the same visitor will not be counted.
+
+Ideally orders would be coded to include tealium_event="purchase", and order status views would be coded
+with tealium_event="order_status" along with removal of order_id, as tags in TiQ can automatically fire transaction events
+when order_id is present in the data layer.
+
+Some other possible solutions for this issue include:
+
+- Leveraging document.referrer within this snippet to make sure that a purchase data layer is coded only when the user arrives at the page from a checkout page (or
+  whichever page is the referrer for purchases).
+- Adding logic in TiQ to persist order IDs in a cookie, comparing the order ID in the data layer on this page to the cookie and updating
+the event data to remove order_id and update tealium_event if the order ID is present in that cookie.
+
+{% endcomment %}
+
+
 {% assign tealium_enabled = false %}
 {% assign tealium_account = "" %}
 {% assign tealium_profile = "" %}
